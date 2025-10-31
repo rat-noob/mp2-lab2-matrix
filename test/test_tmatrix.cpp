@@ -155,6 +155,32 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 	ASSERT_NO_THROW(TDynamicMatrix<int> res = m1 - m);
 }
 
+TEST(TDynamicMatrix, correct_subtract_matrices)
+{
+	TDynamicMatrix<int> m(5);
+	
+	for (size_t i = 0; i < 5; i++)
+	{
+		for (size_t j = 0; j < 5; j++)
+		{
+			 m[i][j]=1;
+		}
+	}
+	
+	
+	m= m * 5;
+	int res=0;
+	for (size_t i = 0; i < 5; i++)
+	{
+		for (size_t j = 0; j < 5; j++)
+		{
+			res += m[i][j];
+		}
+	}
+	ASSERT_EQ(res, 125);
+}
+
+
 TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 {
 	TDynamicMatrix<int> m(5);
@@ -162,5 +188,48 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 
 
 	ASSERT_ANY_THROW(TDynamicMatrix<int> res = m1 - m);
+}
+
+TEST(TDynamicMatrix, can_mul_matrixes_with_equal_size)
+{
+	TDynamicMatrix<int> m(2);
+	TDynamicMatrix<int> m1(2);
+
+	for (size_t i = 0; i < m.size(); i++)
+	{
+		for (size_t j = 0; j < m.size(); j++)
+		{
+			m[i][j] = 2;
+			m1[i][j] = 2;
+		}
+	}
+
+	ASSERT_NO_THROW(TDynamicMatrix<int> res = m1 * m);
+
+	TDynamicMatrix<int> res = m1 * m;
+
+	int sum=0;
+	for (size_t i = 0; i < m.size(); i++)
+	{
+		for (size_t j = 0; j < m.size(); j++)
+		{
+			sum += res[i][j];
+		}
+	}
+
+	ASSERT_EQ(sum, 32);
+}
+
+TEST(TDynamicMatrix, cant_mul_matrixes_with_not_equal_size)
+{
+	TDynamicMatrix<int> m(3);
+	TDynamicMatrix<int> m1(2);
+
+	
+
+
+	ASSERT_ANY_THROW(TDynamicMatrix<int> res = m1 * m);
+
+	
 }
 
